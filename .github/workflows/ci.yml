@@ -19,6 +19,8 @@ jobs:
       HUSKY: 0
       APP_URL: http://localhost:3000
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/business_journal
+      BETTER_AUTH_SECRET: ci-only-secret-not-used-in-production-0000
+      BETTER_AUTH_URL: http://localhost:3000
     steps:
       - uses: actions/checkout@v4
 
