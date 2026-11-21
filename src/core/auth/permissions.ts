@@ -1,7 +1,7 @@
 import type { Role } from "@/generated/prisma/enums";
 import { ForbiddenError } from "@/core/errors";
 
-const ALL_ACTIONS = [
+export const ALL_ACTIONS = [
   "business:update",
   "member:manage",
   "product:read",
