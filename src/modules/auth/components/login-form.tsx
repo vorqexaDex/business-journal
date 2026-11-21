@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { signInAction } from "../actions";
 import type { FormState } from "../types";
-import { Field } from "./field";
+import { Field } from "@/components/ui/field";
 
 const initialState: FormState = {};
 
