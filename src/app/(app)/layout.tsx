@@ -2,6 +2,10 @@ import { Suspense, type ReactNode } from "react";
 import { requireUser } from "@/core/auth/session";
 import { signOutAction } from "@/modules/auth/actions";
 
+// Everything in this area depends on who is signed in, so it cannot be prerendered
+// or cached. This opts the section out of Next.js's instant-navigation dev check.
+export const instant = false;
+
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <Suspense fallback={<p className="p-6 text-sm text-neutral-500">Loading…</p>}>
