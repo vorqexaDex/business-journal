@@ -72,5 +72,5 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm db:test:migrate
+      - run: pnpm exec prisma migrate deploy
       - run: pnpm test

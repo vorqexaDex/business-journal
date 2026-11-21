@@ -18,7 +18,7 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:test:create": "docker exec bj-postgres psql -U postgres -c \"CREATE DATABASE business_journal_test\"",
-    "db:test:migrate": "dotenv -o -e .env.test -- prisma migrate deploy",
+    "db:test:migrate": "dotenv run --override -f .env.test -- prisma migrate deploy",
     "test": "vitest run"
   },
   "lint-staged": {
