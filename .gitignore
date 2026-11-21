@@ -33,6 +33,7 @@ yarn-error.log*
 # env files (.env.example is committed, everything else is ignored)
 .env*
 !.env.example
+!.env.test
 
 # vercel
 .vercel
