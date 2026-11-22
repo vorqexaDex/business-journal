@@ -94,6 +94,8 @@ model Business {
   name      String
   currency  String // ISO 4217 code, for example "USD"
   timezone  String // IANA name, for example "Europe/London"
+  country   String? // ISO 3166-1 alpha-2 code, for example "GB"
+  city      String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?

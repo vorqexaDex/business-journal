@@ -207,6 +207,9 @@ settings:
 importers:
   .:
     dependencies:
+      "@photostructure/tz-lookup":
+        specifier: ^11.8.0
+        version: 11.8.0
       "@prisma/adapter-pg":
         specifier: ^7.10.1
         version: 7.10.1
@@ -216,6 +219,9 @@ importers:
       better-auth:
         specifier: ^1.7.26
         version: 1.7.26(@prisma/client@7.10.1(prisma@7.10.1(@types/node@20.19.43)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(magicast@0.5.5)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3))(typescript@5.9.3))(mysql2@3.24.4(@types/node@20.19.43))(next@16.4.6(@babel/core@7.29.13(supports-color@7.2.0))(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(pg@8.23.1)(prisma@7.10.1(@types/node@20.19.43)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(magicast@0.5.5)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(vitest@5.1.1(@types/node@20.19.43)(vite@8.3.8(@types/node@20.19.43)(jiti@2.7.0)(yaml@2.9.1)))
+      country-state-city:
+        specifier: ^3.2.1
+        version: 3.2.1
       next:
         specifier: 16.4.6
         version: 16.4.6(@babel/core@7.29.13(supports-color@7.2.0))(@types/node@20.19.43)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -1241,6 +1247,12 @@ packages:
     resolution:
       {
         integrity: sha512-1Duyg48TdJNdyhEB8Xn1L36bT9Pv6GUtlKjHxOys8xkaF/rQq3XJE+bAurSK/AgIz5mGFsb77cn9Pb20+WCScw==,
+      }
+
+  "@photostructure/tz-lookup@11.8.0":
+    resolution:
+      {
+        integrity: sha512-RvTkAjjWAfgvoaHVXugwi9XOw4rwyrL8wuqox4PwRLW9FZwpmPhNUY31MgY7k5avK6sbD9S7i1/rUtM4A310/g==,
       }
 
   "@prisma/adapter-pg@7.10.1":
@@ -2725,6 +2737,12 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  country-state-city@3.2.1:
+    resolution:
+      {
+        integrity: sha512-kxbanqMc6izjhc/EHkGPCTabSPZ2G6eG4/97akAYHJUN4stzzFEvQPZoF8oXDQ+10gM/O/yUmISCR1ZVxyb6EA==,
+      }
 
   cross-spawn@7.0.6:
     resolution:
@@ -6319,6 +6337,8 @@ snapshots:
 
   "@oxc-project/types@0.156.0": {}
 
+  "@photostructure/tz-lookup@11.8.0": {}
+
   "@prisma/adapter-pg@7.10.1":
     dependencies:
       "@prisma/driver-adapter-utils": 7.10.1
@@ -7213,6 +7233,8 @@ snapshots:
       parse-json: 5.2.0
     optionalDependencies:
       typescript: 5.9.3
+
+  country-state-city@3.2.1: {}
 
   cross-spawn@7.0.6:
     dependencies:
