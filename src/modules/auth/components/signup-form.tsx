@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import type { FormState } from "../types";
+import { FormError } from "@/components/ui/form-error";
 import { signUpAction } from "../actions";
+import type { FormState } from "../types";
 
 const initialState: FormState = {};
 
@@ -13,13 +14,15 @@ export function SignUpForm() {
   const [state, formAction, pending] = useActionState(signUpAction, initialState);
 
   return (
-    <form action={formAction} className="space-y-5">
+    <form action={formAction} noValidate className="space-y-5">
+      {state.error ? <FormError>{state.error}</FormError> : null}
       <Field
         label="Full name"
         name="name"
         type="text"
         autoComplete="name"
         placeholder="Your full name"
+        defaultValue={state.values?.name}
         error={state.fieldErrors?.name?.[0]}
       />
       <Field
@@ -28,6 +31,7 @@ export function SignUpForm() {
         type="email"
         autoComplete="email"
         placeholder="you@yourbusiness.com"
+        defaultValue={state.values?.email}
         error={state.fieldErrors?.email?.[0]}
       />
       <Field
@@ -38,7 +42,6 @@ export function SignUpForm() {
         placeholder="At least 8 characters"
         error={state.fieldErrors?.password?.[0]}
       />
-      {state.error ? <p className="text-danger text-sm">{state.error}</p> : null}
       <Button type="submit" disabled={pending} className="w-full">
         {pending ? "Creating account…" : "Create account"}
       </Button>

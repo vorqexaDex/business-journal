@@ -88,3 +88,13 @@
     }
   }
 }
+
+/* Browser autofill normally paints a pale background. Keep it dark and consistent. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  box-shadow: 0 0 0 1000px var(--surface) inset;
+  transition: background-color 9999s ease-out 0s;
+}

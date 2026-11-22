@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox";
 import { Field } from "@/components/ui/field";
+import { FormError } from "@/components/ui/form-error";
 import { SelectField } from "@/components/ui/select-field";
 import type { FormState } from "@/core/forms";
 import { createBusinessAction } from "../actions";
@@ -142,16 +143,17 @@ export function CreateBusinessForm({
     cityHelper = `We could not find that city. We will use the main timezone for ${country?.name ?? "your country"}, and you can change it later in Settings.`;
   }
 
-  const ready = Boolean(countryCode) && cityText.length >= 2 && Boolean(currency);
-
   return (
-    <form action={formAction} className="space-y-5">
+    <form action={formAction} noValidate className="space-y-5">
+      {state.error ? <FormError>{state.error}</FormError> : null}
+
       <Field
         label="Business name"
         name="name"
         type="text"
         autoComplete="organization"
         placeholder="For example, Corner Market"
+        defaultValue={state.values?.name}
         error={state.fieldErrors?.name?.[0]}
       />
 
@@ -198,9 +200,7 @@ export function CreateBusinessForm({
         value={chosenCity ? String(chosenCity.longitude) : ""}
       />
 
-      {state.error ? <p className="text-danger text-sm">{state.error}</p> : null}
-
-      <Button type="submit" disabled={pending || !ready} className="w-full">
+      <Button type="submit" disabled={pending} className="w-full">
         {pending ? "Creating…" : "Create business"}
       </Button>
     </form>

@@ -2,6 +2,7 @@
 
 import { useId, useState, type KeyboardEvent } from "react";
 import { cn } from "./cn";
+import { FieldError } from "./form-error";
 
 export type ComboboxOption = { key: string; label: string; hint?: string };
 
@@ -32,6 +33,7 @@ export function Combobox({
 }: ComboboxProps) {
   const id = useId();
   const listId = `${id}-list`;
+  const errorId = `${id}-error`;
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
 
@@ -81,6 +83,7 @@ export function Combobox({
             expanded && options[activeIndex] ? `${id}-option-${activeIndex}` : undefined
           }
           aria-invalid={error ? true : undefined}
+          aria-describedby={error ? errorId : undefined}
           autoComplete="off"
           disabled={disabled}
           placeholder={placeholder}
@@ -150,7 +153,7 @@ export function Combobox({
       </div>
 
       {error ? (
-        <p className="text-danger text-sm">{error}</p>
+        <FieldError id={errorId}>{error}</FieldError>
       ) : helper ? (
         <p className="text-muted text-sm">{helper}</p>
       ) : null}

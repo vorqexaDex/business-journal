@@ -4,19 +4,22 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { APIError } from "better-auth/api";
 import { auth } from "@/core/auth/auth";
+import { formValues } from "@/core/forms";
 import { signInSchema, signUpSchema } from "./schema";
 import type { FormState } from "./types";
 
 export async function signUpAction(_prev: FormState, formData: FormData): Promise<FormState> {
+  const values = formValues(formData, ["password"]);
+
   const parsed = signUpSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
-    return { fieldErrors: parsed.error.flatten().fieldErrors };
+    return { fieldErrors: parsed.error.flatten().fieldErrors, values };
   }
 
   try {
     await auth.api.signUpEmail({ body: parsed.data });
   } catch (error) {
-    if (error instanceof APIError) return { error: error.message };
+    if (error instanceof APIError) return { error: error.message, values };
     throw error;
   }
 
@@ -25,9 +28,11 @@ export async function signUpAction(_prev: FormState, formData: FormData): Promis
 }
 
 export async function signInAction(_prev: FormState, formData: FormData): Promise<FormState> {
+  const values = formValues(formData, ["password"]);
+
   const parsed = signInSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
-    return { fieldErrors: parsed.error.flatten().fieldErrors };
+    return { fieldErrors: parsed.error.flatten().fieldErrors, values };
   }
 
   try {
@@ -35,7 +40,7 @@ export async function signInAction(_prev: FormState, formData: FormData): Promis
   } catch (error) {
     if (error instanceof APIError) {
       // Same message for "no such user" and "wrong password", so attackers can't probe for accounts.
-      return { error: "Incorrect email or password." };
+      return { error: "Incorrect email or password.", values };
     }
     throw error;
   }

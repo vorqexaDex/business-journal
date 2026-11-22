@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import type { FormState } from "../types";
+import { FormError } from "@/components/ui/form-error";
 import { signInAction } from "../actions";
+import type { FormState } from "../types";
 
 const initialState: FormState = {};
 
@@ -13,13 +14,15 @@ export function LoginForm() {
   const [state, formAction, pending] = useActionState(signInAction, initialState);
 
   return (
-    <form action={formAction} className="space-y-5">
+    <form action={formAction} noValidate className="space-y-5">
+      {state.error ? <FormError>{state.error}</FormError> : null}
       <Field
         label="Email"
         name="email"
         type="email"
         autoComplete="email"
         placeholder="you@yourbusiness.com"
+        defaultValue={state.values?.email}
         error={state.fieldErrors?.email?.[0]}
       />
       <Field
@@ -30,7 +33,6 @@ export function LoginForm() {
         placeholder="Your password"
         error={state.fieldErrors?.password?.[0]}
       />
-      {state.error ? <p className="text-danger text-sm">{state.error}</p> : null}
       <Button type="submit" disabled={pending} className="w-full">
         {pending ? "Logging in…" : "Log in"}
       </Button>
