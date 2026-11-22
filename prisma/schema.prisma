@@ -89,7 +89,7 @@ enum Role {
   @@map("role")
 }
 
-   model Business {
+model Business {
   id        String    @id @default(cuid())
   name      String
   currency  String // ISO 4217 code, for example "USD"
@@ -118,5 +118,5 @@ model Membership {
 
   @@unique([businessId, userId])
   @@index([userId])
-  @@map(DateTime"membership")
+  @@map("membership")
 }
