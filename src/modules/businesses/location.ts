@@ -3,14 +3,10 @@ import tzlookup from "@photostructure/tz-lookup";
 import { City, Country, State } from "country-state-city";
 
 export type CountryOption = { code: string; name: string; currency: string };
-export type CityResult = {
-  name: string;
-  region: string | null;
-  latitude: number;
-  longitude: number;
-};
 
-type IndexedCity = CityResult & { key: string };
+type CityBase = { name: string; region: string | null; latitude: number; longitude: number };
+export type CityResult = CityBase & { timezone: string };
+type IndexedCity = CityBase & { key: string };
 
 let countryCache: CountryOption[] | undefined;
 const cityIndex = new Map<string, IndexedCity[]>();
@@ -77,6 +73,7 @@ export function searchCities(countryCode: string, query: string, limit = 8): Cit
       region,
       latitude,
       longitude,
+      timezone: resolveTimezone({ country: countryCode, latitude, longitude }),
     }));
 }
 
