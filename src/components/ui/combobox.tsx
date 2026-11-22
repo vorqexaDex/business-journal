@@ -95,7 +95,7 @@ export function Combobox({
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={handleKeyDown}
-          className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 focus:border-accent aria-[invalid=true]:border-danger w-full border py-2.5 pr-9 pl-3 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 focus:border-accent aria-[invalid=true]:border-danger w-full border py-2.5 pr-9 pl-3 text-sm transition-[border-color,box-shadow] duration-150 focus:shadow-[0_0_0_4px_var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-50"
         />
 
         <svg

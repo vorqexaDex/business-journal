@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox";
 import { Field } from "@/components/ui/field";
 import { FormError } from "@/components/ui/form-error";
+import { useFormFeedback } from "@/components/ui/use-form-feedback";
 import { SelectField } from "@/components/ui/select-field";
 import type { FormState } from "@/core/forms";
 import { createBusinessAction } from "../actions";
@@ -41,6 +42,7 @@ export function CreateBusinessForm({
   currencies: Option[];
 }) {
   const [state, formAction, pending] = useActionState(createBusinessAction, initialState);
+  const formRef = useFormFeedback(state);
 
   const [countryQuery, setCountryQuery] = useState("");
   const [countryCode, setCountryCode] = useState("");
@@ -144,7 +146,7 @@ export function CreateBusinessForm({
   }
 
   return (
-    <form action={formAction} noValidate className="space-y-5">
+    <form ref={formRef} action={formAction} noValidate className="stagger space-y-5">
       {state.error ? <FormError>{state.error}</FormError> : null}
 
       <Field
@@ -200,7 +202,7 @@ export function CreateBusinessForm({
         value={chosenCity ? String(chosenCity.longitude) : ""}
       />
 
-      <Button type="submit" disabled={pending} className="w-full">
+      <Button type="submit" loading={pending} className="w-full">
         {pending ? "Creating…" : "Create business"}
       </Button>
     </form>

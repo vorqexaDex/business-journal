@@ -36,7 +36,7 @@ export function Field({
         required
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 aria-[invalid=true]:border-danger focus:border-accent w-full border px-3 py-2.5 text-sm"
+        className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 aria-[invalid=true]:border-danger focus:border-accent w-full border px-3 py-2.5 text-sm transition-[border-color,box-shadow] duration-150 focus:shadow-[0_0_0_4px_var(--focus-ring)]"
       />
       {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </div>

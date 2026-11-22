@@ -5,6 +5,7 @@ import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { FormError } from "@/components/ui/form-error";
+import { useFormFeedback } from "@/components/ui/use-form-feedback";
 import { signUpAction } from "../actions";
 import type { FormState } from "../types";
 
@@ -12,9 +13,10 @@ const initialState: FormState = {};
 
 export function SignUpForm() {
   const [state, formAction, pending] = useActionState(signUpAction, initialState);
+  const formRef = useFormFeedback(state);
 
   return (
-    <form action={formAction} noValidate className="space-y-5">
+    <form ref={formRef} action={formAction} noValidate className="stagger space-y-5">
       {state.error ? <FormError>{state.error}</FormError> : null}
       <Field
         label="Full name"
@@ -42,7 +44,7 @@ export function SignUpForm() {
         placeholder="At least 8 characters"
         error={state.fieldErrors?.password?.[0]}
       />
-      <Button type="submit" disabled={pending} className="w-full">
+      <Button type="submit" loading={pending} className="w-full">
         {pending ? "Creating account…" : "Create account"}
       </Button>
       <p className="text-muted text-center text-sm">

@@ -5,6 +5,7 @@ import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { FormError } from "@/components/ui/form-error";
+import { useFormFeedback } from "@/components/ui/use-form-feedback";
 import { signInAction } from "../actions";
 import type { FormState } from "../types";
 
@@ -12,9 +13,10 @@ const initialState: FormState = {};
 
 export function LoginForm() {
   const [state, formAction, pending] = useActionState(signInAction, initialState);
+  const formRef = useFormFeedback(state);
 
   return (
-    <form action={formAction} noValidate className="space-y-5">
+    <form ref={formRef} action={formAction} noValidate className="stagger space-y-5">
       {state.error ? <FormError>{state.error}</FormError> : null}
       <Field
         label="Email"
@@ -33,7 +35,7 @@ export function LoginForm() {
         placeholder="Your password"
         error={state.fieldErrors?.password?.[0]}
       />
-      <Button type="submit" disabled={pending} className="w-full">
+      <Button type="submit" loading={pending} className="w-full">
         {pending ? "Logging in…" : "Log in"}
       </Button>
       <p className="text-muted text-center text-sm">
