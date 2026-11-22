@@ -1,4 +1,5 @@
 import type { ChangeEvent } from "react";
+import { FieldError } from "./form-error";
 
 type Option = { value: string; label: string };
 
@@ -24,6 +25,7 @@ export function SelectField({
   onChange,
 }: SelectFieldProps) {
   const controlled = value !== undefined;
+  const errorId = `${name}-error`;
 
   return (
     <div className="space-y-1.5">
@@ -41,7 +43,8 @@ export function SelectField({
             }
           : { defaultValue: "" })}
         aria-invalid={error ? true : undefined}
-        className="rounded-control border-line bg-surface text-ink aria-[invalid=true]:border-danger focus:border-accent w-full border px-3 py-2.5 text-sm"
+        aria-describedby={error ? errorId : undefined}
+        className="rounded-control border-line bg-surface text-ink aria-[invalid=true]:border-danger focus:border-accent w-full border px-3 py-2.5 text-sm transition-[border-color,box-shadow] duration-150 focus:shadow-[0_0_0_4px_var(--focus-ring)]"
       >
         <option value="" disabled>
           {placeholder}
@@ -53,7 +56,7 @@ export function SelectField({
         ))}
       </select>
       {error ? (
-        <p className="text-danger text-sm">{error}</p>
+        <FieldError id={errorId}>{error}</FieldError>
       ) : helper ? (
         <p className="text-muted text-sm">{helper}</p>
       ) : null}

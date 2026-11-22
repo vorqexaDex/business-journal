@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { requireUser } from "@/core/auth/session";
-import type { FormState } from "@/core/forms";
+import { formValues, type FormState } from "@/core/forms";
 import { setActiveBusinessId } from "./active-business";
 import { createBusinessSchema } from "./schema";
 import { createBusiness } from "./service";
@@ -15,7 +15,7 @@ export async function createBusinessAction(
 
   const parsed = createBusinessSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
-    return { fieldErrors: parsed.error.flatten().fieldErrors };
+    return { fieldErrors: parsed.error.flatten().fieldErrors, values: formValues(formData) };
   }
 
   const business = await createBusiness(user.id, parsed.data);

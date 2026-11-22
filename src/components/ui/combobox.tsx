@@ -2,6 +2,7 @@
 
 import { useId, useState, type KeyboardEvent } from "react";
 import { cn } from "./cn";
+import { FieldError } from "./form-error";
 
 export type ComboboxOption = { key: string; label: string; hint?: string };
 
@@ -32,6 +33,7 @@ export function Combobox({
 }: ComboboxProps) {
   const id = useId();
   const listId = `${id}-list`;
+  const errorId = `${id}-error`;
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
 
@@ -81,6 +83,7 @@ export function Combobox({
             expanded && options[activeIndex] ? `${id}-option-${activeIndex}` : undefined
           }
           aria-invalid={error ? true : undefined}
+          aria-describedby={error ? errorId : undefined}
           autoComplete="off"
           disabled={disabled}
           placeholder={placeholder}
@@ -92,7 +95,7 @@ export function Combobox({
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={handleKeyDown}
-          className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 focus:border-accent aria-[invalid=true]:border-danger w-full border py-2.5 pr-9 pl-3 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 focus:border-accent aria-[invalid=true]:border-danger w-full border py-2.5 pr-9 pl-3 text-sm transition-[border-color,box-shadow] duration-150 focus:shadow-[0_0_0_4px_var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-50"
         />
 
         <svg
@@ -150,7 +153,7 @@ export function Combobox({
       </div>
 
       {error ? (
-        <p className="text-danger text-sm">{error}</p>
+        <FieldError id={errorId}>{error}</FieldError>
       ) : helper ? (
         <p className="text-muted text-sm">{helper}</p>
       ) : null}

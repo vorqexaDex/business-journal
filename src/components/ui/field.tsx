@@ -1,13 +1,26 @@
+import { FieldError } from "./form-error";
+
 type FieldProps = {
   label: string;
   name: string;
   type: string;
   autoComplete?: string;
   placeholder?: string;
+  defaultValue?: string;
   error?: string;
 };
 
-export function Field({ label, name, type, autoComplete, placeholder, error }: FieldProps) {
+export function Field({
+  label,
+  name,
+  type,
+  autoComplete,
+  placeholder,
+  defaultValue,
+  error,
+}: FieldProps) {
+  const errorId = `${name}-error`;
+
   return (
     <div className="space-y-1.5">
       <label htmlFor={name} className="text-ink text-sm font-medium">
@@ -19,11 +32,13 @@ export function Field({ label, name, type, autoComplete, placeholder, error }: F
         type={type}
         autoComplete={autoComplete}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         required
         aria-invalid={error ? true : undefined}
-        className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 aria-[invalid=true]:border-danger focus:border-accent w-full border px-3 py-2.5 text-sm"
+        aria-describedby={error ? errorId : undefined}
+        className="rounded-control border-line bg-surface text-ink placeholder:text-muted/70 aria-[invalid=true]:border-danger focus:border-accent w-full border px-3 py-2.5 text-sm transition-[border-color,box-shadow] duration-150 focus:shadow-[0_0_0_4px_var(--focus-ring)]"
       />
-      {error ? <p className="text-danger text-sm">{error}</p> : null}
+      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </div>
   );
 }

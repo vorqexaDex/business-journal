@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans } from "next/font/google";
 import type { ReactNode } from "react";
+import { HapticsListener } from "@/components/haptics-listener";
 import "./globals.css";
 
 const sans = Instrument_Sans({
@@ -22,7 +23,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${sans.variable} dark`}>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased">
+        <HapticsListener />
+        {children}
+      </body>
     </html>
   );
 }

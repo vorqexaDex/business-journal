@@ -3,6 +3,7 @@
 /* The app is dark by default. `dark:` classes follow the .dark class on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ── Design tokens. See docs/design-system.md before changing any of these. ── */
 :root {
   --canvas: #0a0a0a;
   --surface: #141414;
@@ -14,6 +15,7 @@
   --accent-ink: #06130f;
   --danger: #f08a80;
   --danger-soft: #2a1412;
+  --focus-ring: rgba(79, 179, 157, 0.18);
   color-scheme: dark;
 }
 
@@ -33,6 +35,56 @@
 
   --radius-control: 0.5rem;
   --radius-panel: 0.875rem;
+}
+
+/* ── Motion ── */
+@theme {
+  --animate-menu-in: menu-in 120ms ease-out;
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Children fade up one after another. Put `stagger` on a form or a list. */
+.stagger > * {
+  animation: fade-up 280ms ease-out both;
+}
+.stagger > :nth-child(2) {
+  animation-delay: 40ms;
+}
+.stagger > :nth-child(3) {
+  animation-delay: 80ms;
+}
+.stagger > :nth-child(4) {
+  animation-delay: 120ms;
+}
+.stagger > :nth-child(5) {
+  animation-delay: 160ms;
+}
+.stagger > :nth-child(6) {
+  animation-delay: 200ms;
+}
+.stagger > :nth-child(n + 7) {
+  animation-delay: 240ms;
 }
 
 @layer base {
@@ -63,6 +115,16 @@
   }
 }
 
+/* Browser autofill normally paints a pale background. Keep it dark and consistent. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  box-shadow: 0 0 0 1000px var(--surface) inset;
+  transition: background-color 9999s ease-out 0s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -71,20 +133,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-@theme {
-  --animate-menu-in: menu-in 120ms ease-out;
-
-  @keyframes menu-in {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
   }
 }
