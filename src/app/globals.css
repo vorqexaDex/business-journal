@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-/* The app is dark by default. This makes `dark:` classes follow the .dark class
-   on <html>, instead of the device setting. */
+/* The app is dark by default. `dark:` classes follow the .dark class on <html>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {

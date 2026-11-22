@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { SelectField } from "@/components/ui/select-field";
 import type { FormState } from "@/core/forms";
@@ -20,12 +21,13 @@ export function CreateBusinessForm({
   const [state, formAction, pending] = useActionState(createBusinessAction, initialState);
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form action={formAction} className="space-y-5">
       <Field
         label="Business name"
         name="name"
         type="text"
         autoComplete="organization"
+        placeholder="For example, Corner Market"
         error={state.fieldErrors?.name?.[0]}
       />
       <SelectField
@@ -42,14 +44,10 @@ export function CreateBusinessForm({
         options={timezones}
         error={state.fieldErrors?.timezone?.[0]}
       />
-      {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60 dark:bg-white dark:text-neutral-900"
-      >
+      {state.error ? <p className="text-danger text-sm">{state.error}</p> : null}
+      <Button type="submit" disabled={pending} className="w-full">
         {pending ? "Creating…" : "Create business"}
-      </button>
+      </Button>
     </form>
   );
 }
