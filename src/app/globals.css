@@ -1,33 +1,21 @@
 @import "tailwindcss";
 
-:root {
-  --canvas: #f5f6f7;
-  --surface: #ffffff;
-  --ink: #1a2027;
-  --muted: #5b6573;
-  --line: #e2e5e9;
-  --accent: #17695a;
-  --accent-soft: #e4f1ed;
-  --accent-ink: #ffffff;
-  --danger: #b3382c;
-  --danger-soft: #fbeceb;
-  color-scheme: light;
-}
+/* The app is dark by default. This makes `dark:` classes follow the .dark class
+   on <html>, instead of the device setting. */
+@custom-variant dark (&:where(.dark, .dark *));
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --canvas: #12161b;
-    --surface: #1a2027;
-    --ink: #e8ecf0;
-    --muted: #9aa4b0;
-    --line: #2b333c;
-    --accent: #4fb39d;
-    --accent-soft: #1b2e2a;
-    --accent-ink: #0d1a17;
-    --danger: #f08a80;
-    --danger-soft: #3a1f1c;
-    color-scheme: dark;
-  }
+:root {
+  --canvas: #0a0a0a;
+  --surface: #141414;
+  --ink: #ededed;
+  --muted: #a1a1a1;
+  --line: #262626;
+  --accent: #4fb39d;
+  --accent-soft: #12261f;
+  --accent-ink: #06130f;
+  --danger: #f08a80;
+  --danger-soft: #2a1412;
+  color-scheme: dark;
 }
 
 @theme inline {

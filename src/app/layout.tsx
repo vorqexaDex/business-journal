@@ -15,15 +15,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f6f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#12161b" },
-  ],
+  themeColor: "#0a0a0a",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={sans.variable}>
+    <html lang="en" className={`${sans.variable} dark`}>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );
