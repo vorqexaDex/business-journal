@@ -18,7 +18,11 @@ export function useFormFeedback(state: FormState) {
   useEffect(() => {
     const failed =
       Boolean(state.error) || Object.values(state.fieldErrors ?? {}).some((m) => m && m.length > 0);
-    if (!failed) return;
+
+    if (!failed) {
+      if (state.message) haptic("success");
+      return;
+    }
 
     haptic("error");
 

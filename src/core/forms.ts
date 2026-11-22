@@ -1,5 +1,9 @@
 export type FormState = {
   error?: string;
+  // A friendly confirmation, for example "A new link is on its way."
+  message?: string;
+  // Seconds the user must wait before trying again.
+  retryAfter?: number;
   fieldErrors?: Record<string, string[] | undefined>;
   // What the user typed, sent back so the form does not wipe their input.
   values?: Record<string, string>;
