@@ -10,8 +10,8 @@ type SelectFieldProps = {
 
 export function SelectField({ label, name, options, placeholder, error }: SelectFieldProps) {
   return (
-    <div className="space-y-1">
-      <label htmlFor={name} className="text-sm font-medium">
+    <div className="space-y-1.5">
+      <label htmlFor={name} className="text-ink text-sm font-medium">
         {label}
       </label>
       <select
@@ -20,7 +20,7 @@ export function SelectField({ label, name, options, placeholder, error }: Select
         required
         defaultValue=""
         aria-invalid={error ? true : undefined}
-        className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+        className="rounded-control border-line bg-surface text-ink aria-[invalid=true]:border-danger focus:border-accent w-full border px-3 py-2.5 text-sm"
       >
         <option value="" disabled>
           {placeholder}
@@ -31,7 +31,7 @@ export function SelectField({ label, name, options, placeholder, error }: Select
           </option>
         ))}
       </select>
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="text-danger text-sm">{error}</p> : null}
     </div>
   );
 }
